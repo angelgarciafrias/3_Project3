@@ -1,0 +1,10 @@
+git clone https://github.com/angelgarciafrias/3_Project3.git
+
+git add -A
+git commit -m "First commit"
+git push
+
+---------------------------------------------------------------------------------------------------------
+export FLASK_APP=application.py
+export FLASK_DEBUG=1
+python -m flask run
