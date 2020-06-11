@@ -1,0 +1,12 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block body %}
+<h1>Hello, {{ user.username }}</h1>
+<ul>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+{% endblock %}

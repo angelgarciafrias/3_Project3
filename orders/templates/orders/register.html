@@ -1,0 +1,19 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+<h2>Register user</h2>
+
+<form method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Register</button>
+</form>
+
+<hr>
+
+<a href="{% url 'index' %}">Home</a>
+{% endblock %}
