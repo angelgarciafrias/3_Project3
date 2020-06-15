@@ -21,21 +21,23 @@
                 <img src="https://cdn3.iconfinder.com/data/icons/fast-food-66/32/3-Pizza-512.png" width="30" height="30"
                     class="d-inline-block align-top" alt="">
             </a>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a class="navbar-brand" href="#">
-                        Shopping Cart
-                        <img src="https://www.pikpng.com/pngl/b/519-5198254_chariot-supermarch-png-clipart-shopping-cart-transparent-png.png" width="30" height="30"
-                            class="d-inline-block align-top" alt="">
-                    </a>
-                    &nbsp &nbsp &nbsp &nbsp
-                    <a class="navbar-brand" href="{% url 'logout' %}">
-                        Logout
-                        <img src="https://cdn3.iconfinder.com/data/icons/monosign/142/logout-512.png" width="30" height="30"
-                            class="d-inline-block align-top" alt="">
-                    </a>
-                </li>
-            </ul>
+            {% if user.username %}
+                <ul class="navbar-nav px-3">
+                    <li class="nav-item text-nowrap">
+                        <a class="navbar-brand" href="#">
+                            Shopping Cart
+                            <img src="https://www.pikpng.com/pngl/b/519-5198254_chariot-supermarch-png-clipart-shopping-cart-transparent-png.png" width="30" height="30"
+                                class="d-inline-block align-top" alt="">
+                        </a>
+                        &nbsp &nbsp &nbsp &nbsp
+                        <a class="navbar-brand" href="{% url 'logout' %}">
+                            Logout
+                            <img src="https://cdn3.iconfinder.com/data/icons/monosign/142/logout-512.png" width="30" height="30"
+                                class="d-inline-block align-top" alt="">
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
         </nav>
         </br></br>
         <div>
