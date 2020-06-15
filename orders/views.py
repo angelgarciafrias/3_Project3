@@ -21,7 +21,6 @@ def login_view(request):
         return render(request, "orders/login.html", {"message": "Invalid credentials."})
 
 def register(request):
-
     form = UserCreationForm()
     if request.method == "POST":
         

@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{% static 'orders/styles.css' %}" />
     </head>
     <body>
-        <nav class="navbar navbar-light fixed-top flex-md-nowrap p-0" style="background-color: #e08866;">
+        <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0" style="background-color: #e08866;">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'index' %}">
                 Pizza Carlos
                 <img src="https://cdn3.iconfinder.com/data/icons/fast-food-66/32/3-Pizza-512.png" width="30" height="30"
@@ -39,7 +39,7 @@
                 </ul>
             {% endif %}
         </nav>
-        </br></br>
+        </br>
         <div>
             {% if user.username %}
             <a class="navbar-brand col-sm-3 col-md-2 mr-0">
