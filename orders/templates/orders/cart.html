@@ -1,8 +1,44 @@
 {% extends "orders/base.html" %}
+{% load static %}
 
 {% block title %}
 {% endblock %}
 
 {% block body %}
 
+<div class="row centered">
+    <div class="col" style="max-width: 70%;">
+        <div class="card border-dark centered" style="max-width: 100%;">
+            <div class="card-header">
+                <h4 class="centered" style="margin:0px;">Orders</h>
+            </div>
+            <div class="card-body">
+                Table orders:
+                <ul>
+                    <li>Pizza Margarita Small Thin Crust</li>
+                    <li>Pizza Margarita Small Thin Crust</li>
+                    <li>Pizza Margarita Small Thin Crust</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="card border-dark centered" style="max-width: 100%;">
+            <div class="card-header">
+                <h4 class="centered" style="margin:0px;">Payment</h4>
+            </div>
+            <div class="card-body">
+                Card details:
+            </div>
+        </div>
+        <hr>
+        <div class="card border-dark centered" style="max-width: 100%;">
+            <div class="card-header">
+                <h4 class="centered" style="margin:0px;">Delivery</h4>
+            </div>
+            <div class="card-body">
+                Delivery Adress:
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

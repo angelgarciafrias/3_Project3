@@ -1,7 +1,7 @@
 git clone https://github.com/angelgarciafrias/3_Project3.git
 
 git add -A
-git commit -m "Database implemented"
+git commit -m "Menu and card html implemented"
 git push
 
 ---------------------------------------------------------------------------------------------------------

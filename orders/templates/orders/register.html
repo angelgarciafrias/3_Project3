@@ -1,62 +1,62 @@
 {% extends "orders/base.html" %}
 
 {% block title %}
-    - Register
+- Register
 {% endblock %}
 
 {% block body %}
-    <div class="row centered">
-        <div class="col col-lg-6">
-            <h4 class="centered">Register</h4>
-            <hr>
-            <form method="post">
-                {% csrf_token %}
-                    {% for field in form %}
-                        {% if field.errors %}
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">{{ field.label }}</label> 
-                                <div class="col-sm-10">
-                                    {% if field.name == 'password1' %}
-                                    <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
-                                    {% elif field.name == 'password2' %}
-                                    <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
-                                    {% else %}
-                                    <input name="{{ field.name }}" type="Username" class="form-control" placeholder="Username">
-                                    {% endif %}
-                                </div>
-                            </div>
-                        <div class="form-group row centered w3-color">
-                            <span style="color:tomato;">
-                                {% for error in  field.errors %}{{ error }}{% endfor %}
-                            </span>
-                        </div>
-                        {% else %}
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">{{ field.label }}</label> 
-                            <div class="col-sm-10">
-                                {% if field.name == 'password1' %}
-                                <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
-                                {% elif field.name == 'password2' %}
-                                <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
-                                {% else %}
-                                <input name="{{ field.name }}" type="Username" class="form-control" placeholder="Username">
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                    <div class="form-group row">
-                        <div class="col centered">
-                          <button type="submit" class="btn btn-primary">Login</button>
-                        </div>
-                    </div>
-            </form>
-            <hr>
+<div class="row centered">
+    <div class="col col-lg-6">
+        <h4 class="centered">Register</h4>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            {% if field.errors %}
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">{{ field.label }}</label>
+                <div class="col-sm-10">
+                    {% if field.name == 'password1' %}
+                    <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
+                    {% elif field.name == 'password2' %}
+                    <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
+                    {% else %}
+                    <input name="{{ field.name }}" type="Username" class="form-control" placeholder="Username">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group row centered w3-color">
+                <span style="color:tomato;">
+                    {% for error in  field.errors %}{{ error }}{% endfor %}
+                </span>
+            </div>
+            {% else %}
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">{{ field.label }}</label>
+                <div class="col-sm-10">
+                    {% if field.name == 'password1' %}
+                    <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
+                    {% elif field.name == 'password2' %}
+                    <input name="{{ field.name }}" type="password" class="form-control" placeholder="Password">
+                    {% else %}
+                    <input name="{{ field.name }}" type="Username" class="form-control" placeholder="Username">
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
             <div class="form-group row">
                 <div class="col centered">
-                  <a class="btn btn-outline-secondary" href="{% url 'index' %}" role="button">Home</a>
+                    <button type="submit" class="btn btn-primary">Login</button>
                 </div>
+            </div>
+        </form>
+        <hr>
+        <div class="form-group row">
+            <div class="col centered">
+                <a class="btn btn-outline-secondary" href="{% url 'index' %}" role="button">Home</a>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

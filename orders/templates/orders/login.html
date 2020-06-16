@@ -2,47 +2,46 @@
 {% load static %}
 
 {% block title %}
-    - Login
+- Login
 {% endblock %}
 
 {% block body %}
-    <div class="row centered">
-        <div class="col col-lg-6">
-            <h4 class="centered">Login</h4>
-            <hr>
-            <form action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">Username</label>
-                  <div class="col-sm-10">
-                      <input name="username" type="username" class="form-control" placeholder="Username">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">Password</label>
-                  <div class="col-sm-10">
-                    <input name="password" type="password" class="form-control" placeholder="Password">
-                  </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col centered">
-                      <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
-                </div>
-            </form>
-            <hr>
-            <div class="form-group row">
-                <div class="col centered">
-                  <a class="btn btn-outline-secondary" href="{% url 'register' %}" role="button">Register here if you don't have an account!</a>
-                </div>
-            </div>
+<div class="row centered">
+  <div class="col col-lg-6">
+    <h4 class="centered">Login</h4>
+    <hr>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input name="username" type="username" class="form-control" placeholder="Username">
         </div>
-    </div>
-    <div class="row centered">
-        <div class="col col-lg-6 centered">
-            <img src="{% static 'orders/media/pizza.jpg' %}"
-                width="50%" height="auto" class="d-inline-block align-top" alt="">
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input name="password" type="password" class="form-control" placeholder="Password">
         </div>
-    
+      </div>
+      <div class="form-group row">
+        <div class="col centered">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="form-group row">
+      <div class="col centered">
+        <a class="btn btn-outline-secondary" href="{% url 'register' %}" role="button">Register here if you don't have
+          an account!</a>
+      </div>
     </div>
+  </div>
+</div>
+<div class="row centered">
+  <div class="col col-lg-6 centered">
+    <img src="{% static 'orders/media/pizza.jpg' %}" width="50%" height="auto" class="d-inline-block align-top" alt="">
+  </div>
+</div>
 {% endblock %}

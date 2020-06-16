@@ -1,8 +1,47 @@
 {% extends "orders/base.html" %}
+{% load static %}
 
 {% block title %}
 {% endblock %}
 
 {% block body %}
 
+<div class="card-deck">
+    <div class="card border-dark mb-3 centered" style="max-width: 30%;">
+        <img class="card-img-top" src="{% static 'orders/media/pizza.jpg' %}" alt="" style="max-width: 100%;">
+    </div>
+    <div class="card border-dark mb-3 centered" style="max-width: 70%;">
+        <div class="card-header">
+            <h4 class="centered" style="margin:0px;">Margarita</h4>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputState" class="centered">Crust</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState" class="centered">Size</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState" class="centered">Extras</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary float-right">Add to cart</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
