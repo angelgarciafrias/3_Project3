@@ -1,20 +1,20 @@
 {% extends "orders/base.html" %}
 
 {% block title %}
-    - Error
+- Error
 {% endblock %}
 
 {% block body %}
-    <div class="row centered">
-        <div class="col col-lg-6">
-            <h4 class="centered">Don't panic!</h4>
-            <h5 class="centered">{{message}}</h5>
-            <hr>
-            <div class="form-group row">
-                <div class="col centered">
-                  <a class="btn btn-outline-secondary" href="{% url 'index' %}" role="button">Home</a>
-                </div>
+<div class="row centered">
+    <div class="col col-lg-6">
+        <h4 class="centered">Don't panic!</h4>
+        <h5 class="centered">{{message}}</h5>
+        <hr>
+        <div class="form-group row">
+            <div class="col centered">
+                <a class="btn btn-outline-secondary" href="{% url 'index' %}" role="button">Home</a>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .models import Flavors, Crusts, Sizes, Extras, Pizzas
+from .models import Flavor, Crust, Size, Extra, Pizza
 
 def login_view(request):
     username = request.POST["username"]
@@ -41,11 +41,25 @@ def index(request):
         return render(request, "orders/login.html")
     context = {
         "user": request.user,
-        "flavors": Flavors.objects.all(),
-        "crusts": Crusts.objects.all(),
-        "sizes": Sizes.objects.all(),
-        "extras": Extras.objects.all(),
+        "flavors": Flavor.objects.all(),
+        "crusts": Crust.objects.all(),
+        "sizes": Size.objects.all(),
+        "extras": Extra.objects.all(),
         }
+
+    if request.method == 'POST':
+        pizza = Pizza.objects.all()
+        pizza.create(
+            id=None,
+            pizza_flavor_id = Flavor.objects.get(typeof_flavor=request.POST["flavor"]).id,
+            pizza_size_id = Size.objects.get(typeof_size=request.POST["size"]).id,
+            pizza_crust_id = Crust.objects.get(typeof_crust=request.POST["crust"]).id,
+            quantity = 1,
+        )
+
+        Pizza.objects.last().pizzas_extra.add(Extra.objects.get(typeof_extra=request.POST["extra"]))
+        return render(request, "orders/index.html", context)
+
     return render(request, "orders/index.html", context)
 
 def cart(request):
@@ -53,9 +67,9 @@ def cart(request):
         return render(request, "orders/login.html")
     context = {
         "user": request.user,
-        "flavors": Flavors.objects.all(),
-        "crusts": Crusts.objects.all(),
-        "sizes": Sizes.objects.all(),
-        "extras": Extras.objects.all(),
+        "flavors": Flavor.objects.all(),
+        "crusts": Crust.objects.all(),
+        "sizes": Size.objects.all(),
+        "extras": Extra.objects.all(),
         }
     return render(request, "orders/cart.html", context)

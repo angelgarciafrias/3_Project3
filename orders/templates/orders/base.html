@@ -16,18 +16,18 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'orders/styles.css' %}" />
 
-    <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0" style="background-color: #e08866;">     
+    <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0" style="background-color: #e08866;">
         <div class="container-fluid">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'index' %}">
                 Pizza Carlos
-                <img src="{% static 'orders/media/icon_pizza.png' %}"
-                    width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="{% static 'orders/media/icon_pizza.png' %}" width="30" height="30"
+                    class="d-inline-block align-top" alt="">
             </a>
             {% if user.username %}
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     {% if user.is_staff %}
-                    <a class="navbar-brand" href="admin/"}>
+                    <a class="navbar-brand" href="admin/" }>
                         Staff
                         <img src="{% static 'orders/media/icon_settings.png' %}" width="30" height="30"
                             class="d-inline-block align-top" alt="">
@@ -36,8 +36,8 @@
                     {% endif %}
                     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'index' %}">
                         Menu
-                        <img src="{% static 'orders/media/icon_menu.png' %}"
-                            width="30" height="30" class="d-inline-block align-top" alt="">
+                        <img src="{% static 'orders/media/icon_menu.png' %}" width="30" height="30"
+                            class="d-inline-block align-top" alt="">
                     </a>
                     &nbsp &nbsp &nbsp &nbsp
                     <a class="navbar-brand" href="{% url 'cart' %}">
