@@ -4,6 +4,7 @@
 
 <head>
     <title>Pizza Carlos {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="#" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -14,43 +15,50 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'orders/styles.css' %}" />
+
+    <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0" style="background-color: #e08866;">     
+        <div class="container-fluid">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'index' %}">
+                Pizza Carlos
+                <img src="{% static 'orders/media/icon_pizza.png' %}"
+                    width="30" height="30" class="d-inline-block align-top" alt="">
+            </a>
+            {% if user.username %}
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    {% if user.is_staff %}
+                    <a class="navbar-brand" href="admin/"}>
+                        Staff
+                        <img src="{% static 'orders/media/icon_settings.png' %}" width="30" height="30"
+                            class="d-inline-block align-top" alt="">
+                    </a>
+                    &nbsp &nbsp &nbsp &nbsp
+                    {% endif %}
+                    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'index' %}">
+                        Menu
+                        <img src="{% static 'orders/media/icon_menu.png' %}"
+                            width="30" height="30" class="d-inline-block align-top" alt="">
+                    </a>
+                    &nbsp &nbsp &nbsp &nbsp
+                    <a class="navbar-brand" href="{% url 'cart' %}">
+                        {{ user.username }}'s cart
+                        <img src="{% static 'orders/media/icon_cart.png' %}" width="30" height="30"
+                            class="d-inline-block align-top" alt="">
+                    </a>
+                    &nbsp &nbsp &nbsp &nbsp
+                    <a class="navbar-brand" href="{% url 'logout' %}">
+                        Logout
+                        <img src="{% static 'orders/media/icon_logout.png' %}" width="30" height="30"
+                            class="d-inline-block align-top" alt="">
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
 </head>
 
 <body>
-    <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0" style="background-color: #e08866;">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'index' %}">
-            Pizza Carlos
-            <img src="https://cdn3.iconfinder.com/data/icons/fast-food-66/32/3-Pizza-512.png" width="30" height="30"
-                class="d-inline-block align-top" alt="">
-        </a>
-        {% if user.username %}
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="navbar-brand" href="#">
-                    Shopping Cart
-                    <img src="https://www.pikpng.com/pngl/b/519-5198254_chariot-supermarch-png-clipart-shopping-cart-transparent-png.png"
-                        width="30" height="30" class="d-inline-block align-top" alt="">
-                </a>
-                &nbsp &nbsp &nbsp &nbsp
-                <a class="navbar-brand" href="{% url 'logout' %}">
-                    Logout
-                    <img src="https://cdn3.iconfinder.com/data/icons/monosign/142/logout-512.png" width="30" height="30"
-                        class="d-inline-block align-top" alt="">
-                </a>
-            </li>
-        </ul>
-        {% endif %}
-    </nav>
-    </br>
-    <div>
-        {% if user.username %}
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0">
-            Welcome {{ user.username }}!
-            <img src="https://cdn2.iconfinder.com/data/icons/mobile-banking-ver-1a/100/1-04-512.png" width="30"
-                height="30" class="d-inline-block align-top" alt="">
-        </a>
-        {% endif %}
-    </div>
     <div class="container">
         {% block body %}
         {% endblock %}

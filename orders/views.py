@@ -3,12 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
-def index(request):
-    if not request.user.is_authenticated:
-        return render(request, "orders/login.html", {"message": None})
-    context = {"user": request.user}
-    return render(request, "orders/index.html", context)
+from .models import Flavors, Crusts, Sizes, Extras, Pizzas
 
 def login_view(request):
     username = request.POST["username"]
@@ -23,9 +18,9 @@ def login_view(request):
 def register(request):
     form = UserCreationForm()
     if request.method == "POST":
-        
+
         form = UserCreationForm(data=request.POST)
-        
+
         if form.is_valid():
             user = form.save()
 
@@ -40,3 +35,27 @@ def register(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
+def index(request):
+    if not request.user.is_authenticated:
+        return render(request, "orders/login.html")
+    context = {
+        "user": request.user,
+        "flavors": Flavors.objects.all(),
+        "crusts": Crusts.objects.all(),
+        "sizes": Sizes.objects.all(),
+        "extras": Extras.objects.all(),
+        }
+    return render(request, "orders/index.html", context)
+
+def cart(request):
+    if not request.user.is_authenticated:
+        return render(request, "orders/login.html")
+    context = {
+        "user": request.user,
+        "flavors": Flavors.objects.all(),
+        "crusts": Crusts.objects.all(),
+        "sizes": Sizes.objects.all(),
+        "extras": Extras.objects.all(),
+        }
+    return render(request, "orders/cart.html", context)
