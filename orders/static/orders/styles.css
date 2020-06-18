@@ -13,3 +13,40 @@ body {
     margin-bottom:100px;
     margin-top:50px
 }
+
+table {
+    table-layout: fixed ;
+    width: 100% ;
+}
+
+.table th, .table td {
+    text-align: center;
+    width: 20% ;
+    vertical-align: middle;
+}
+
+tfoot {
+    background-color: #b3b3b3;
+    font-weight: bold;
+}
+
+.sidebar-section {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.make-me-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+    padding: 0 15px;
+}

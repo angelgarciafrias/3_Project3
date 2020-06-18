@@ -56,8 +56,11 @@ def index(request):
             pizza_crust_id = Crust.objects.get(typeof_crust=request.POST["crust"]).id,
             quantity = 1,
         )
+        extras = request.POST.getlist('extra')
 
-        Pizza.objects.last().pizzas_extra.add(Extra.objects.get(typeof_extra=request.POST["extra"]))
+        for i in range(len(extras)):
+            Pizza.objects.last().pizza_extra.add(Extra.objects.get(typeof_extra=extras[i]))
+
         return render(request, "orders/index.html", context)
 
     return render(request, "orders/index.html", context)
@@ -71,5 +74,6 @@ def cart(request):
         "crusts": Crust.objects.all(),
         "sizes": Size.objects.all(),
         "extras": Extra.objects.all(),
+        "pizzas": Pizza.objects.all(),
         }
     return render(request, "orders/cart.html", context)

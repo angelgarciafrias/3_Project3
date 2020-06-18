@@ -9,48 +9,60 @@
 
 {% for item_flavors in flavors %}
 <div class="card-deck">
-    <div class="card border-dark mb-3 centered" style="max-width: 30%;">
-        <img class="card-img-top" src="{% static 'orders/media/pizza.jpg' %}" alt="" style="max-width: 100%;">
-    </div>
-    <div class="card border-dark mb-3 centered" style="max-width: 70%;">
+    <div class="card border-dark mb-3 centered">
         <div class="card-header">
             <h4 class="centered">{{ item_flavors.typeof_flavor }}</h4>
             <h6 class="centered" style="margin:0px;">{{ item_flavors.decriptionof_flavor }}</h6>
         </div>
         <div class="card-body">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="Input1" class="centered" >Size</label>
-                        <select name="size" id="Input1" class="form-control">
-                            {% for item_sizes in sizes %}
-                            <option> {{ item_sizes }} </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="Input2" class="centered" >Crust</label>
-                        <select name="crust" id="Input2" class="form-control">
-                            {% for item_crusts in crusts %}
-                            <option> {{ item_crusts }} </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="Input3" class="centered">Extras</label>
-                        <select name="extra" id="Input3" class="form-control">
-                            {% for item_extras in extras %}
-                            <option> {{ item_extras }} </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+            <div class="row">
+                <div class="col" style="max-width: 30%;">
+                    <img class="card-img-top" src="{% static 'orders/media/pizza.jpg' %}" alt="" style="max-width: 100%;">
                 </div>
-                <div class="form-check">
-                    <input name="flavor" class="form-check-input" type="hidden" value="{{ item_flavors.typeof_flavor }}" id="defaultCheck1" checked>
-                  </div>
-                <button type="submit" class="btn btn-secondary float-right">Add to cart</button>
-            </form>
+                <div class="col" style="max-width: 70%;">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-row centered">
+                            <div class="form-group col-md-6">
+                                <label for="Input2" class="centered">Crust</label>
+                                <select name="crust" id="Input2" class="form-control">
+                                    {% for item_crusts in crusts %}
+                                    <option> {{ item_crusts }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Input1" class="centered">Size</label>
+                                <select name="size" id="Input1" class="form-control">
+                                    {% for item_sizes in sizes %}
+                                    <option> {{ item_sizes }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row centered align-items-center">
+                            <div class="form-group col-md-6">
+                                <label for="Input3" class="centered">Extras</label>
+                                <select multiple name="extra" id="Input3" class="form-control">
+                                    {% for item_extras in extras %}
+                                    <option> {{ item_extras }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="Input3" class="centered"></label>
+                                Hold down “Control” or “Command” to select more than one extra.
+                                <input name="flavor" class="form-check-input" type="hidden"
+                                    value="{{ item_flavors.typeof_flavor }}" id="defaultCheck1" checked>
+                            </div>
+                            <div class="form-group col-md-3 centered">
+                                <button type="submit" class="btn btn-secondary">Add pizza to cart</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
