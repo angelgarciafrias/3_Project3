@@ -45,6 +45,8 @@ def index(request):
         "crusts": Crust.objects.all(),
         "sizes": Size.objects.all(),
         "extras": Extra.objects.all(),
+        "pizzas": Pizza.objects.all(),
+        "orders": Pizza.objects.all().count(),
         }
 
     if request.method == 'POST':
@@ -61,6 +63,16 @@ def index(request):
         for i in range(len(extras)):
             Pizza.objects.last().pizza_extra.add(Extra.objects.get(typeof_extra=extras[i]))
 
+        context = {
+            "user": request.user,
+            "flavors": Flavor.objects.all(),
+            "crusts": Crust.objects.all(),
+            "sizes": Size.objects.all(),
+            "extras": Extra.objects.all(),
+            "pizzas": Pizza.objects.all(),
+            "orders": Pizza.objects.all().count(),
+        }
+
         return render(request, "orders/index.html", context)
 
     return render(request, "orders/index.html", context)
@@ -75,5 +87,6 @@ def cart(request):
         "sizes": Size.objects.all(),
         "extras": Extra.objects.all(),
         "pizzas": Pizza.objects.all(),
+        "orders": Pizza.objects.all().count(),
         }
     return render(request, "orders/cart.html", context)
