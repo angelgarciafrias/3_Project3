@@ -5,8 +5,16 @@
 - Menu
 {% endblock %}
 
-{% block body %}
+{% block script %}
+<script>
+    document.addEventListener('click', event => {
+        const element = event.target;
+        element.parentElement.style.animationPlayState = 'running';
+    });
+</script>
+{% endblock%}
 
+{% block body %}
 {% for item_flavors in flavors %}
 <div class="card-deck">
     <div class="card border-dark mb-3 centered">
@@ -56,9 +64,8 @@
                                     value="{{ item_flavors.typeof_flavor }}" id="defaultCheck1" checked>
                             </div>
                             <div class="form-group col-md-3 centered">
-                                <button type="submit" class="btn btn-secondary" 
-                                    onclick="alert('Your pizza has been added to your cart')">
-                                        Add pizza to cart
+                                <button type="submit" class="btn btn-secondary">
+                                    Add pizza to cart
                                 </button>
                             </div>
                         </div>
