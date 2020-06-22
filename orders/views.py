@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .models import Flavor, Crust, Size, Extra, Pizza
-from django.db.models import Case, Value, When
+from django.db.models import Sum
 
 def login_view(request):
     username = request.POST["username"]
@@ -49,24 +49,23 @@ def index(request):
         "extras": Extra.objects.all(),
         "pizzas": Pizza.objects.all().filter(username=username),
         "orders": Pizza.objects.all().filter(username=username).count(),
+        "total_order": Pizza.objects.all().filter(username=username).aggregate(Sum('price'))
         }
 
     if request.method == 'POST':
         pizza = Pizza.objects.all()
         username = request.user
+        extras = request.POST.getlist('extra')
         
         pizza.create(
             id=None,
             pizza_flavor_id = Flavor.objects.get(typeof_flavor=request.POST["flavor"]).id,
             pizza_size_id = Size.objects.get(typeof_size=request.POST["size"]).id,
             pizza_crust_id = Crust.objects.get(typeof_crust=request.POST["crust"]).id,
-            quantity = 1,
-            price = 6.95,
             username = username,
         )
 
         current_pizza = Pizza.objects.filter(username=username).last()
-        print(str(current_pizza.pizza_size))
         
         if str(current_pizza.pizza_size) == "Small":
             current_pizza.price = 6.95
@@ -74,9 +73,8 @@ def index(request):
             current_pizza.price = 9.95
         elif str(current_pizza.pizza_size) == "Large":
             current_pizza.price = 12.95
+        current_pizza.price = current_pizza.price + 0.5*len(extras)
         current_pizza.save()
-        
-        extras = request.POST.getlist('extra')
         
         for i in range(len(extras)):
             current_pizza.pizza_extra.add(Extra.objects.get(typeof_extra=extras[i]))
@@ -89,6 +87,7 @@ def index(request):
             "extras": Extra.objects.all(),
             "pizzas": Pizza.objects.all().filter(username=username),
             "orders": Pizza.objects.all().filter(username=username).count(),
+            "total_order": Pizza.objects.all().filter(username=username).aggregate(Sum('price'))
         }
 
         return render(request, "orders/index.html", context)
@@ -107,5 +106,6 @@ def cart(request):
         "extras": Extra.objects.all(),
         "pizzas": Pizza.objects.all().filter(username=username),
         "orders": Pizza.objects.all().filter(username=username).count(),
+        "total_order": Pizza.objects.all().filter(username=username).aggregate(Sum('price'))
         }
     return render(request, "orders/cart.html", context)

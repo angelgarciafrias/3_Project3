@@ -23,7 +23,7 @@
                             <th scope="col">Crust</th>
                             <th scope="col">Size</th>
                             <th scope="col">Extras</th>
-                            <th scope="col">Price (€)</th>
+                            <th scope="col">Price</th>
                         </tr>
                     </thead>
                     {% for item_pizzas in pizzas %}
@@ -36,17 +36,17 @@
                                 {{ item_extra }} <br>
                             {% endfor %}
                             {% else %}
-                                None
+                                -
                             {% endif %}
                         </td>
 
-                        <td>{{ item_pizzas.price }}</td>
+                        <td>{{ item_pizzas.price }} €</td>
                     </tr>
                     {% endfor %}
                     <tfoot>
                         <tr>
                             <td colspan="4">Total</td>
-                            <td>XXX</td>
+                            <td>{{total_order.price__sum|floatformat:"2" }} €</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -192,7 +192,7 @@
             <div class="modal-body">
                 Your order is ready! You will receive it in approximately 30 min!
                 <br>
-                Thank you {{user.username}} for choosing Pizza Ángel
+                Thank you {{user.username}} for choosing Pizzas Ángel
                 <img src="{% static 'orders/media/icon_pizza.png' %}" width="25" height="25"
                     class="d-inline-block align-top" alt="">
             </div>
