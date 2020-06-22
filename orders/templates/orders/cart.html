@@ -40,7 +40,19 @@
                             {% endif %}
                         </td>
 
-                        <td>{{ item_pizzas.price }} €</td>
+                        <td>
+                            <div class="row centered">
+                                <div class="col-md-9">
+                                    {{ item_pizzas.price }} €
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" title="Click to delete this pizza" style="color: red;" class="close centered" aria-label="Close">
+                                        <img src="{% static 'orders/media/icon_delete.png' %}" width="18" height="18"
+                                        class="d-inline-block align-top" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     {% endfor %}
                     <tfoot>
