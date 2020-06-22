@@ -98,6 +98,10 @@ def cart(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html")
     username = request.user
+
+    if request.method == 'POST':
+        Pizza.objects.filter(pk=request.POST["delete"]).delete()
+
     context = {
         "user": request.user,
         "flavors": Flavor.objects.all(),
@@ -106,6 +110,7 @@ def cart(request):
         "extras": Extra.objects.all(),
         "pizzas": Pizza.objects.all().filter(username=username),
         "orders": Pizza.objects.all().filter(username=username).count(),
-        "total_order": Pizza.objects.all().filter(username=username).aggregate(Sum('price'))
+        "total_order": Pizza.objects.all().filter(username=username).aggregate(Sum('price')),
+        "progress": Pizza.objects.all().filter(username=username).last(),
         }
     return render(request, "orders/cart.html", context)

@@ -2,10 +2,10 @@ from django.db import models
 
 class Flavor(models.Model):
     typeof_flavor = models.CharField(max_length=64)
-    decriptionof_flavor = models.TextField(max_length=512, default='')
+    description = models.TextField(max_length=512, default='')
 
     def __str__(self):
-        return f"{self.typeof_flavor}: {self.decriptionof_flavor}"
+        return f"{self.typeof_flavor} ({self.description})"
 
 class Crust(models.Model):
     typeof_crust = models.CharField(max_length=64)
@@ -32,10 +32,13 @@ class Pizza(models.Model):
         Crust, on_delete=models.CASCADE, related_name="pizzas_crust")
     pizza_size = models.ForeignKey(
         Size, on_delete=models.CASCADE, related_name="pizzas_size")
-    pizza_extra = models.ManyToManyField(Extra)
+    pizza_extra = models.ManyToManyField(Extra, blank=True)
 
     username = models.CharField(max_length=64, default='')
     price= models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    progress = models.CharField(max_length=256, choices=[('Buon Appetito!','Buon Appetito!'), ('In delivery','In delivery'), 
+        ('We are preparing your order','We are preparing your order'), ('We are cooking your pizza','We are cooking your pizza'),
+        ('We have received your order','We have received your order')],default='')
 
     def __str__(self):
-        return f"Pizza: {self.pizza_flavor}, {self.pizza_crust}, {self.pizza_size}, {self.price} with {self.pizza_extra.all()}. Order from: {self.username}"
+        return "{} --- {} --- {} --- {} --- {}".format(self.pizza_size, self.pizza_crust, self.pizza_flavor,list(self.pizza_extra.all()), self.progress)
