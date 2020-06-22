@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .models import Flavor, Crust, Size, Extra, Pizza
+from django.db.models import Case, Value, When
 
 def login_view(request):
     username = request.POST["username"]
@@ -39,29 +40,46 @@ def logout_view(request):
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html")
+    username = request.user
     context = {
         "user": request.user,
         "flavors": Flavor.objects.all(),
         "crusts": Crust.objects.all(),
         "sizes": Size.objects.all(),
         "extras": Extra.objects.all(),
-        "pizzas": Pizza.objects.all(),
-        "orders": Pizza.objects.all().count(),
+        "pizzas": Pizza.objects.all().filter(username=username),
+        "orders": Pizza.objects.all().filter(username=username).count(),
         }
 
     if request.method == 'POST':
         pizza = Pizza.objects.all()
+        username = request.user
+        
         pizza.create(
             id=None,
             pizza_flavor_id = Flavor.objects.get(typeof_flavor=request.POST["flavor"]).id,
             pizza_size_id = Size.objects.get(typeof_size=request.POST["size"]).id,
             pizza_crust_id = Crust.objects.get(typeof_crust=request.POST["crust"]).id,
             quantity = 1,
+            price = 6.95,
+            username = username,
         )
-        extras = request.POST.getlist('extra')
 
+        current_pizza = Pizza.objects.filter(username=username).last()
+        print(str(current_pizza.pizza_size))
+        
+        if str(current_pizza.pizza_size) == "Small":
+            current_pizza.price = 6.95
+        elif str(current_pizza.pizza_size) == "Medium":
+            current_pizza.price = 9.95
+        elif str(current_pizza.pizza_size) == "Large":
+            current_pizza.price = 12.95
+        current_pizza.save()
+        
+        extras = request.POST.getlist('extra')
+        
         for i in range(len(extras)):
-            Pizza.objects.last().pizza_extra.add(Extra.objects.get(typeof_extra=extras[i]))
+            current_pizza.pizza_extra.add(Extra.objects.get(typeof_extra=extras[i]))
 
         context = {
             "user": request.user,
@@ -69,8 +87,8 @@ def index(request):
             "crusts": Crust.objects.all(),
             "sizes": Size.objects.all(),
             "extras": Extra.objects.all(),
-            "pizzas": Pizza.objects.all(),
-            "orders": Pizza.objects.all().count(),
+            "pizzas": Pizza.objects.all().filter(username=username),
+            "orders": Pizza.objects.all().filter(username=username).count(),
         }
 
         return render(request, "orders/index.html", context)
@@ -80,13 +98,14 @@ def index(request):
 def cart(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html")
+    username = request.user
     context = {
         "user": request.user,
         "flavors": Flavor.objects.all(),
         "crusts": Crust.objects.all(),
         "sizes": Size.objects.all(),
         "extras": Extra.objects.all(),
-        "pizzas": Pizza.objects.all(),
-        "orders": Pizza.objects.all().count(),
+        "pizzas": Pizza.objects.all().filter(username=username),
+        "orders": Pizza.objects.all().filter(username=username).count(),
         }
     return render(request, "orders/cart.html", context)

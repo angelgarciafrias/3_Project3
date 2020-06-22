@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col" style="max-width: 30%;">
-                    <img class="card-img-top" src="{% static 'orders/media/pizza.jpg' %}" alt="" style="max-width: 100%;">
+                    <img class="card-img-top" src="{% static 'orders/media/pizzas/pizza_'%}{{ item_flavors.typeof_flavor}}.jpg" alt="" style="max-width: 100%;">
                 </div>
                 <div class="col" style="max-width: 70%;">
                     <form method="POST">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-row centered align-items-center">
                             <div class="form-group col-md-6">
-                                <label for="Input3" class="centered">Extras</label>
+                                <label for="Input3" class="centered">Extras (+0,5 each)</label>
                                 <select multiple name="extra" id="Input3" class="form-control">
                                     {% for item_extras in extras %}
                                     <option> {{ item_extras }} </option>

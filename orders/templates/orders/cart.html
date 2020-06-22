@@ -33,14 +33,14 @@
                         <td>{{ item_pizzas.pizza_size }}</td>
                         <td> {% if item_pizzas.pizza_extra.all %}
                             {% for item_extra in item_pizzas.pizza_extra.all %}
-                            {{ item_extra }} <br>
+                                {{ item_extra }} <br>
                             {% endfor %}
                             {% else %}
-                            None
+                                None
                             {% endif %}
                         </td>
 
-                        <td>7,45</td>
+                        <td>{{ item_pizzas.price }}</td>
                     </tr>
                     {% endfor %}
                     <tfoot>
@@ -192,7 +192,7 @@
             <div class="modal-body">
                 Your order is ready! You will receive it in approximately 30 min!
                 <br>
-                Thank you {{user.username}} for choosing Pizza Carlos
+                Thank you {{user.username}} for choosing Pizza Ángel
                 <img src="{% static 'orders/media/icon_pizza.png' %}" width="25" height="25"
                     class="d-inline-block align-top" alt="">
             </div>
