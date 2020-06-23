@@ -1,7 +1,7 @@
 git clone https://github.com/angelgarciafrias/3_Project3.git
 
 git add -A
-git commit -m "Progress bar 2 implemented"
+git commit -m "Finished"
 git push
 
 ---------------------------------------------------------------------------------------------------------

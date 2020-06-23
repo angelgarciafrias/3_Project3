@@ -1,4 +1,5 @@
 {% extends "orders/base.html" %}
+{% load static %}
 
 {% block title %}
 - Register
@@ -47,16 +48,16 @@
             {% endfor %}
             <div class="form-group row">
                 <div class="col centered">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </div>
         </form>
         <hr>
-        <div class="form-group row">
-            <div class="col centered">
-                <a class="btn btn-outline-secondary" href="{% url 'index' %}" role="button">Home</a>
-            </div>
-        </div>
+    </div>
+</div>
+<div class="row centered">
+    <div class="col col-lg-6 centered">
+      <img src="{% static 'orders/media/pizzas/pizza_campagnola.jpg' %}" width="50%" height="auto" class="d-inline-block align-top" alt="">
     </div>
 </div>
 {% endblock %}

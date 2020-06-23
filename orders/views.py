@@ -14,7 +14,7 @@ def login_view(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "orders/login.html", {"message": "Invalid credentials."})
+        return render(request, "orders/login.html", {"message": "Invalid credentials"})
 
 def register(request):
     form = UserCreationForm()
@@ -67,11 +67,11 @@ def index(request):
 
         current_pizza = Pizza.objects.filter(username=username).last()
         
-        if str(current_pizza.pizza_size) == "Small":
+        if str(current_pizza.pizza_size) == "Small (6.95 €)":
             current_pizza.price = 6.95
-        elif str(current_pizza.pizza_size) == "Medium":
+        elif str(current_pizza.pizza_size) == "Medium (9.95 €)":
             current_pizza.price = 9.95
-        elif str(current_pizza.pizza_size) == "Large":
+        elif str(current_pizza.pizza_size) == "Large (12.95 €)":
             current_pizza.price = 12.95
         current_pizza.price = current_pizza.price + 0.5*len(extras)
         current_pizza.save()
@@ -100,9 +100,25 @@ def cart(request):
     username = request.user
 
     if request.method == 'POST':
-        Pizza.objects.filter(pk=request.POST["delete"]).delete()
+        if 'delete' in request.POST:
+            Pizza.objects.filter(pk=request.POST["delete"]).delete()
 
-    context = {
+        if 'street' in request.POST:
+            if request.POST["street"] is "" or request.POST["number_floor"] is "" or request.POST["city_zip"] is "" or request.POST["province"] is "":
+                return render(request, "orders/error.html", {"message": "You must provide a valid address for the delivery"})
+            else:
+                print(request.POST["payment"])
+                current_pizza = Pizza.objects.filter(username=username).last()
+                current_pizza.street = request.POST["street"]
+                current_pizza.number_floor = request.POST["number_floor"]
+                current_pizza.city_zip = request.POST["city_zip"]
+                current_pizza.province = request.POST["province"]
+                current_pizza.payment = request.POST["payment"]
+                current_pizza.comments = request.POST["comments"]
+                current_pizza.progress = "We have received your order"
+                current_pizza.save()
+
+    context = { 
         "user": request.user,
         "flavors": Flavor.objects.all(),
         "crusts": Crust.objects.all(),

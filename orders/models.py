@@ -36,6 +36,14 @@ class Pizza(models.Model):
 
     username = models.CharField(max_length=64, default='')
     price= models.DecimalField(max_digits=4, decimal_places=2, default=0)
+
+    street = models.CharField(max_length=256, default='')
+    number_floor = models.CharField(max_length=256, default='')
+    city_zip = models.CharField(max_length=256, default='')
+    province = models.CharField(max_length=256, default='')
+    payment = models.CharField(max_length=256, choices=[('Cash','Cash'), ('Card','Card')],default='')
+    comments = models.CharField(max_length=256, default='', blank=True)
+
     progress = models.CharField(max_length=256, choices=[('Buon Appetito!','Buon Appetito!'), ('In delivery','In delivery'), 
         ('We are preparing your order','We are preparing your order'), ('We are cooking your pizza','We are cooking your pizza'),
         ('We have received your order','We have received your order')],default='')

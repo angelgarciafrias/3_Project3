@@ -16,6 +16,51 @@
 {% block body %}
 <div class="row centered">
     <div class="col" style="max-width: 80%;">
+        {% if progress.progress == 'We have received your order' or progress.progress == 'We are cooking your pizza' or progress.progress == 'We are preparing your order' or progress.progress == 'In delivery' or progress.progress == 'Buon Appetito!' %}
+        <div class="card border-dark centered" style="max-width: 100%;">
+            <div class="card-header">
+                <h5 class="centered" style="margin:0px;">
+                    Progress of your order &nbsp
+                    <img src="{% static 'orders/media/icon_order.png' %}" width="25" height="25"
+                        class="d-inline-block align-top" alt="">
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6 class="centered">
+                    Thank you {{user.username}} for choosing Pizzas Ángel
+                    <img src="{% static 'orders/media/icon_pizza.png' %}" width="20" height="20"
+                        class="d-inline-block align-top" alt="">
+                </h6>
+                <h6 class="centered">
+                    Status: &nbsp <b>  {{ progress.progress }} </b>
+                </h6>
+                <div class="progress">
+                    {% if progress.progress == 'We have received your order'%}
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%">20%
+                        </div>
+                    {% endif %}
+                    {% if progress.progress == 'We are cooking your pizza'%}
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 40%">40%
+                    </div>
+                    {% endif %}
+                    {% if progress.progress == 'We are preparing your order'%}
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 60%">60%
+                    </div>
+                    {% endif %}
+                    {% if progress.progress == 'In delivery'%}
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 80%">80%
+                    </div>
+                    {% endif %}
+                    {% if progress.progress == 'Buon Appetito!'%}
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%">100%
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endif %}
         <div class="card border-dark centered" style="max-width: 100%;">
             <div class="card-header">
                 <h5 class="centered" style="margin:0px;">
@@ -56,8 +101,7 @@
                                 </div>
                                 {% if progress.progress == '' %}
                                 <div class="col-md-3">
-                                    <form method="POST">
-                                        {% csrf_token %}
+                                    <form method="POST"> {% csrf_token %}
                                         <input name="delete" class="form-check-input" type="hidden"
                                         value="{{ item_pizzas.id }}" id="{{ item_pizzas.id }}" checked>
                                         <button type="submit" title="Delete this pizza" style="color: red;" class="close centered" aria-label="Close">
@@ -81,50 +125,86 @@
             </div>
         </div>
         <hr>
-        {% if progress.progress == 'We have received your order' or progress.progress == 'We are cooking your pizza' or progress.progress == 'We are preparing your order' or progress.progress == 'In delivery' or progress.progress == 'Buon Appetito!' %}
-        <div class="card border-dark centered" style="max-width: 100%;">
-            <div class="card-header">
-                <h5 class="centered" style="margin:0px;">
-                    Progress of your order &nbsp
-                    <img src="{% static 'orders/media/icon_order.png' %}" width="25" height="25"
-                        class="d-inline-block align-top" alt="">
-                </h5>
-            </div>
-            <div class="card-body">
-                <h6 class="centered">
-                    Your order is ready! You will receive it in approximately 30 min!
-                    <br>
-                    Thank you {{user.username}} for choosing Pizzas Ángel
-                    <img src="{% static 'orders/media/icon_pizza.png' %}" width="25" height="25"
-                        class="d-inline-block align-top" alt="">
-                    
-                    {{ progress.progress }}
-                </h6>
-                <div class="progress">
-                    {% if progress.progress == 'We have received your order'%}
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%">20%
+        {% if progress.progress == '' %}
+        <form method="POST" id="myform"> {% csrf_token %}
+            <div class="card border-dark centered">
+                <div class="card-header">
+                    <h5 class="centered" style="margin:0px;">
+                        Delivery &nbsp
+                        <img src="{% static 'orders/media/icon_delivery.png' %}" width="25" height="25"
+                            class="d-inline-block align-top" alt="">
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col" style="max-width: 70%;">
+                            <label>Street</label>
+                            <input name="street" type="text" class="form-control" placeholder="Calle Cruces">
                         </div>
-                    {% endif %}
-                    {% if progress.progress == 'We are cooking your pizza'%}
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 40%">40%
+                        <div class="col" style="max-width: 30%;">
+                            <label>Number, floor</label>
+                            <input name="number_floor" type="text" class="form-control" placeholder="9, 1-B">
+                        </div>
                     </div>
-                    {% endif %}
-                    {% if progress.progress == 'We are preparing your order'%}
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 60%">60%
+                    <br>
+                    <div class="form-row">
+                        <div class="col" style="max-width: 70%;">
+                            <label>City, zip code</label>
+                            <input name="city_zip" type="text" class="form-control" placeholder="Las Rozas, 28232">
+                        </div>
+                        <div class="col" style="max-width: 30%;">
+                            <label>Province</label>
+                            <input name="province" type="text" class="form-control" placeholder="Madrid">
+                        </div>
                     </div>
-                    {% endif %}
-                    {% if progress.progress == 'In delivery'%}
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 80%">80%
-                    </div>
-                    {% endif %}
-                    {% if progress.progress == 'Buon Appetito!'%}
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%">100%
-                    </div>
-                    {% endif %}
-
                 </div>
             </div>
-        </div>
+            <hr>
+            <div class="card border-dark">
+                <div class="card-header">
+                    <h5 class="centered" style="margin:0px;">
+                        Payment &nbsp
+                        <img src="{% static 'orders/media/icon_payment.png' %}" width="25" height="25"
+                            class="d-inline-block align-top" alt="">
+                    </h5>
+                </div>
+                <div class="card-body" style="text-align: center;">
+                    <div class="form-check">
+                        <input name="payment" class="form-check-input" type="radio" id="exampleRadios2"
+                            value="Cash" checked>
+                        <label class="form-check-label" for="exampleRadios2">
+                            Cash
+                            <img src="{% static 'orders/media/icon_cash.png' %}" width="22" height="22"
+                                class="d-inline-block align-top" alt="">
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input name="payment" class="form-check-input" type="radio" id="exampleRadios1"
+                            value="Card">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Credit or debit card
+                            <img src="{% static 'orders/media/icon_card.png' %}" width="25" height="25"
+                                class="d-inline-block align-top" alt="">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="card border-dark">
+                <div class="card-header">
+                    <h5 class="centered" style="margin:0px;">
+                        Comments &nbsp
+                        <img src="{% static 'orders/media/icon_comment.png' %}" width="20" height="20"
+                            class="d-inline-block align-top" alt="">
+                    </h5>
+                </div>
+                <div class="card-body" style="text-align: center;">
+                    <div class="form-group">
+                        <input name="comments" type="text" class="form-control" placeholder="Any additional comments?">
+                    </div>
+                </div>
+            </div>
+        </form>
         {% endif %}
     </div>
     {% if progress.progress == '' %}
@@ -134,50 +214,15 @@
                 <div class="card border-dark centered">
                     <div class="card-header">
                         <h5 class="centered" style="margin:0px;">
-                            Payment &nbsp
-                            <img src="{% static 'orders/media/icon_payment.png' %}" width="25" height="25"
-                                class="d-inline-block align-top" alt="">
-                        </h5>
-                    </div>
-                    <div class="card-body centered">
-                        <button type="button" class="btn btn-light" data-toggle="modal"
-                            data-target="#exampleModalCenter">
-                            Method
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div class="card border-dark centered">
-                    <div class="card-header">
-                        <h5 class="centered" style="margin:0px;">
-                            Delivery &nbsp
-                            <img src="{% static 'orders/media/icon_delivery.png' %}" width="25" height="25"
-                                class="d-inline-block align-top" alt="">
-                        </h5>
-                    </div>
-                    <div class="card-body centered">
-                        <button type="button" class="btn btn-light" data-toggle="modal"
-                            data-target="#exampleModalCenter2">
-                            Address
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div class="card border-dark centered">
-                    <div class="card-header">
-                        <h5 class="centered" style="margin:0px;">
                             Finish &nbsp
                             <img src="{% static 'orders/media/icon_finish.png' %}" width="25" height="25"
                                 class="d-inline-block align-top" alt="">
                         </h5>
                     </div>
                     <div class="card-body centered">
-                        <form method="POST">
-                            <button type="button" class="btn btn-success">
-                                Confirm order
-                            </button>
-                        </form>
-                        
+                        <button form="myform" type="submit" class="btn btn-success">
+                            Confirm order
+                        </button>
                     </div>
                 </div>
                 <hr>
@@ -187,72 +232,4 @@
 </div>
 {% endif %}
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle1">Payment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                        value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">
-                        Credit or debit card
-                        <img src="{% static 'orders/media/icon_card.png' %}" width="25" height="25"
-                            class="d-inline-block align-top" alt="">
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                        value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                        Cash
-                        <img src="{% static 'orders/media/icon_cash.png' %}" width="25" height="25"
-                            class="d-inline-block align-top" alt="">
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Delivery</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Street</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Street">
-                    </div>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput2">Town & Postal code</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput2"
-                            placeholder="Town & Postal code">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}

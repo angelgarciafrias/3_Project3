@@ -4,6 +4,8 @@
 
 <head>
     <link rel="shortcut icon" href="#" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <title>Pizzas Ángel {% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -15,7 +17,12 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'orders/styles.css' %}" />
-    
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+
     {% block script %} {% endblock %}
 
     <nav class="navbar navbar-light sticky-top flex-md-nowrap p-0" style="background-color: #e08866;">
@@ -44,13 +51,13 @@
                     &nbsp &nbsp &nbsp &nbsp
                     <a class="navbar-brand" href="{% url 'cart' %}">
                         {{ user.username }}'s cart
+                        {% if orders > 0 %}
+                            <span class="cart" style="font-size: 20;">
+                                ({{ orders }})
+                            </span>
+                        {% endif%}
                         <img src="{% static 'orders/media/icon_cart.png' %}" width="30" height="30"
                             class="d-inline-block align-top" alt="">
-                        {% if orders > 0 %}
-                            <a class="cart" style="font-size: 20;">
-                                ({{ orders }})
-                            </a>
-                        {% endif%}
                     </a>
                     &nbsp &nbsp &nbsp &nbsp
                     <a class="navbar-brand" href="{% url 'logout' %}">
